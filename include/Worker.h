@@ -10,8 +10,8 @@ public:
     Worker(/* args */);
     ~Worker();
     int id;
-    int eachNum , //单次处理消息数
-    
+    int eachNum ; //单次处理消息数
+
 
 };
 
