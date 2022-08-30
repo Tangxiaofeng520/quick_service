@@ -12,7 +12,6 @@ public:
     int id;
     int eachNum ; //单次处理消息数
 
-
 };
 
 Worker::Worker(/* args */)
