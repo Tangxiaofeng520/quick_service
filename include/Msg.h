@@ -1,8 +1,8 @@
 #pragma once
 #include <stdlib.h>
-
+#include <memory>
 using namespace std;
-
+/*
 struct message {
 	uint32_t source;
 	int session;
@@ -22,6 +22,7 @@ struct global_queue {
 	struct message_queue *tail;
 	//struct spinlock lock;
 };
+*/
 
 class basemsg
 {
@@ -42,7 +43,8 @@ class ServiceMsg : public basemsg
 public:
     uint32_t source;
 	int session;
-	void * data;
+	//void * data;
+	shared_ptr<char> buff;
 	size_t sz;
 };
 
