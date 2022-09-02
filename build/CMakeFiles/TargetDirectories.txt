@@ -1,0 +1,3 @@
+/Users/diandian/代码/quick_service/build/CMakeFiles/quick_service.dir
+/Users/diandian/代码/quick_service/build/CMakeFiles/edit_cache.dir
+/Users/diandian/代码/quick_service/build/CMakeFiles/rebuild_cache.dir

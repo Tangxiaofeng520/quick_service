@@ -2,22 +2,22 @@
 
 using namespace std;
 
-class Worker
+class worker
 {
 private:
     /* data */
 public:
-    Worker(/* args */);
-    ~Worker();
+    worker(/* args */);
+    ~worker();
     int id;
     int eachNum ; //单次处理消息数
 
 };
 
-Worker::Worker(/* args */)
+worker::worker(/* args */)
 {
 }
 
-Worker::~Worker()
+worker::~worker()
 {
 }
