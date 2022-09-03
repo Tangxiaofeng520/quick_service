@@ -48,3 +48,15 @@ public:
 	size_t sz;
 };
 
+class socket_accept_msg :public basemsg{
+public:
+	int listenfd;//监听fd
+	int clientfd;//链接的fd
+}
+
+class socket_rw_mag : public basemsg {
+public:
+	int fd;
+	bool isread = false;
+	bool iswrite = false;
+}

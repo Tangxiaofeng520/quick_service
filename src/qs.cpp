@@ -23,16 +23,16 @@ void qs::start()
 shared_ptr<service> qs::pop_global_msg_queue()
 {
     shared_ptr<service> srv = NULL;
-   pthread_spin_lock(&globalLock)
-   {
-        if (!global_msg_queue.empty())
-        {
-        ser = global_msg_queue.front();
-        global_msg_queue.pop();
-        }
-   }
-   pthread_spin_unlock(&globalLock)
-   return srv
+    pthread_spin_lock(&globalLock)
+    {
+            if (!global_msg_queue.empty())
+            {
+            ser = global_msg_queue.front();
+            global_msg_queue.pop();
+            }
+    }
+    pthread_spin_unlock(&globalLock)
+    return srv
 
 }
 
