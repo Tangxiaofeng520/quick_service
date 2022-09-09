@@ -1,0 +1,7 @@
+# ninja log v5
+1	521	1662698834193886072	CMakeFiles/quick_service.dir/src/qs.cpp.o	c889f11ff75fc8d5
+0	28	1662698833698260584	CMakeFiles/quick_service.dir/src/Worker.cpp.o	cac98690bb055ba8
+28	443	1662698834113946937	CMakeFiles/quick_service.dir/src/service.cpp.o	8cde1f3bbfc821ce
+0	309	1662698833982047146	CMakeFiles/quick_service.dir/src/main.cpp.o	def58a6f42ffba4f
+310	334	1662698834006029105	CMakeFiles/quick_service.dir/src/socketworker.cpp.o	8790b60c78aec09a
+521	603	1662698834277822164	quick_service	c897b6b0ce55588a
