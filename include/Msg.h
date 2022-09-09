@@ -1,5 +1,4 @@
 #pragma once
-#include <stdlib.h>
 #include <memory>
 using namespace std;
 /*
@@ -52,11 +51,11 @@ class socket_accept_msg :public basemsg{
 public:
 	int listenfd;//监听fd
 	int clientfd;//链接的fd
-}
+};
 
 class socket_rw_mag : public basemsg {
 public:
 	int fd;
 	bool isread = false;
 	bool iswrite = false;
-}
+};

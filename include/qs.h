@@ -3,12 +3,11 @@
 #include <memory>
 #include "service.h"
 #include <pthread.h>
+#include "thread"
 #include <unistd.h>
-#include "lock.h"
-#include "worker.h"
+#include "Worker.h"
 
-
-class worker;
+//class Worker;
 
 class qs
 {
@@ -19,7 +18,7 @@ public:
     void start();
     //全局队列操作
     shared_ptr<service> pop_global_msg_queue();
-    void push_global_msg_queue(shared_ptr<service> srv);
+    shared_ptr<service> push_global_msg_queue(shared_ptr<service> srv);
     pthread_spinlock_t globalLock;
     void start_workers();
 private:
@@ -28,7 +27,6 @@ private:
     int WORKER_NUM = 3;
     vector<worker*> workers;
     vector<thread*> threads;
-    vector<
 };
 
 

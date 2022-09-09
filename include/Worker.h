@@ -14,10 +14,4 @@ public:
 
 };
 
-worker::worker(/* args */)
-{
-}
 
-worker::~worker()
-{
-}

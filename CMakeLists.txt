@@ -6,17 +6,13 @@ cmake_minimum_required (VERSION 2.8)
 include_directories(include)
 # 查找./src目录下的所有源文件，保存到DIR_SRCS变量
 aux_source_directory(./src DIR_SRCS)
-# 添加库文件路径
-link_directories(${CMAKE_CURRENT_SOURCE_DIR}/3rd/lua-5.3.5/src/)
 # 用C++11
 add_definitions(-std=c++11)
-
 # 指定生成目标文件
-add_executable(quick_service ${DIR_SRCS})
+add_executable(quick_service ${DIR_SRCS} src/main.cpp)
 # 库文件
 find_package (Threads)
 target_link_libraries (quick_service ${CMAKE_THREAD_LIBS_INIT})
-#lua头文件、库
-include_directories(./3rd/lua-5.3.5/src)
-target_link_libraries(quick_service liblua.a)
-target_link_libraries(quick_service dl)
+
+set(CMAKE_BUILD_TYPE "Debug")
+# set(CMAKE_CXX_FLAGS "-O3")
