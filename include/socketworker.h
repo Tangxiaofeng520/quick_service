@@ -11,6 +11,13 @@ public:
     socketworker(/* args */);
     void onEvent(); //epoll 事件处理
     ~socketworker();
+
+
+    int start_socket(unsigned int port);
+
+    void add_event(int fd);
+
+    int remove_event(int fd);
 };
 
 
