@@ -27,8 +27,13 @@ public:
     conn_mgr(/* args */);
     ~conn_mgr();
     void add_conn(int fd, uint32_t id, conn::TYPE type);
+    shared_ptr<conn> get_conn(int fd);
+    bool remove_conn(int fd);
 private:
-    unordered_map<uint32_t, shared_ptr<conn>> conn;
+    unordered_map<uint32_t, shared_ptr<conn>> conns;
     pthread_rwlock_t connsLock; //读写锁
+
+
+
 
 };

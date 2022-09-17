@@ -1,5 +1,7 @@
 #pragma once
 
+#include <sys/epoll.h>
+
 class socketworker
 {
 private:
@@ -9,7 +11,6 @@ public:
     void operator()(); //线程函数
     int efd; //操作epoll实例的 文件描述符
     socketworker(/* args */);
-    void onEvent(); //epoll 事件处理
     ~socketworker();
 
 
@@ -18,6 +19,10 @@ public:
     void add_event(int fd);
 
     int remove_event(int fd);
+
+    int mod_event(int fd);
+
+    void onEvent(epoll_event ev);//epoll 事件处理
 };
 
 

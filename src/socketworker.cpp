@@ -31,8 +31,6 @@ void socketworker::operator()(){
 void socketworker::onEvent(epoll_event ev) {
 
 
-
-
 }
 
 int socketworker::start_socket(uint32_t port) {
@@ -70,7 +68,5 @@ int socketworker::remove_event(int fd){
 }
 
 int socketworker::mod_event(int fd){
-    return ;
+    return 0;
 }
-
-int

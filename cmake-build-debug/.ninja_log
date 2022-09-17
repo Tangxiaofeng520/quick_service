@@ -1,6 +1,6 @@
 # ninja log v5
 2	595	1662710685950400659	CMakeFiles/quick_service.dir/src/qs.cpp.o	c889f11ff75fc8d5
-0	36	1663320192039586326	build.ninja	71c39ad8f6515668
+0	36	1663400557730340769	build.ninja	71c39ad8f6515668
 1	26	1662710685382666548	CMakeFiles/quick_service.dir/src/Worker.cpp.o	cac98690bb055ba8
 26	486	1662710685842451216	CMakeFiles/quick_service.dir/src/service.cpp.o	8cde1f3bbfc821ce
 2	339	1662710685694520496	CMakeFiles/quick_service.dir/src/main.cpp.o	def58a6f42ffba4f
