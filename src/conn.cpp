@@ -6,7 +6,14 @@
 #include "conn.h"
 #include <iostream>
 #include <memory>
+#include <mutex>
+conn_mgr* conn_mgr::m_pInstance = nullptr;//懒汉式的写法
+mutex conn_mgr::m_mutex;
 
+bool conn::is_listen_conn()
+{
+    return type == conn::TYPE::LISTEN;
+}
 
 conn_mgr::conn_mgr(){
     assert(pthread_rwlock_init(&connsLock, NULL)==0);
@@ -50,5 +57,18 @@ bool conn_mgr::remove_conn(int fd){
     }
     pthread_rwlock_unlock(&connsLock);
     return result == 1;
-}
+};
 
+//懒汉式单例
+conn_mgr * conn_mgr ::getInstance()
+{
+
+    m_mutex.lock();//防止多线程调 生成多个实例
+    {
+        if (m_pInstance == NULL)
+            m_pInstance = new conn_mgr();
+        return m_pInstance;
+    }
+    m_mutex.unlock();
+
+};

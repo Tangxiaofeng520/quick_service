@@ -5,12 +5,17 @@
 #include <fcntl.h>
 #include <netinet/in.h>
 #include <iostream>
+#include <cstring>
+#include "conn.h"
 #define BACKLOG 128
 using namespace std;
+conn_mgr * Conn_mgr = NULL;
+//class conn_mgr;
 void
 socketworker::init() {
     efd = epoll_create(1024);
     assert(efd > 0);
+     Conn_mgr = conn_mgr::getInstance();
 }
 
 void socketworker::operator()(){
@@ -29,9 +34,35 @@ void socketworker::operator()(){
 }
 
 void socketworker::onEvent(epoll_event ev) {
+    int fd = ev.data.fd;
+    auto Conn = Conn_mgr->get_conn(fd);
+    if(Conn == NULL){
+        cout << "OnEvent error, conn == NULL" << endl;
+        return;
+    }
+    //事件类型
+    bool isRead = ev.events & EPOLLIN;
+    bool isWrite = ev.events & EPOLLOUT;
+    bool isError = ev.events & EPOLLERR;
+
+    if (Conn->is_listen_conn() )
+    {
+        if (isRead){
+            onaccept(Conn);
+        }
+    }
+    else
+    {
+
+    }
 
 
-}
+};
+
+void socketworker::onaccept(shared_ptr<conn> Conn)
+{
+
+};
 
 int socketworker::start_socket(uint32_t port) {
     int  listen_fd;
@@ -54,6 +85,8 @@ int socketworker::start_socket(uint32_t port) {
     //监听
     r = listen(listen_fd, BACKLOG); //see
     assert(r < 0);
+    Conn_mgr->add_conn(listen_fd,0,conn::TYPE::LISTEN);
+    add_event(listen_fd);
     return 0;
 }
 
@@ -69,4 +102,15 @@ int socketworker::remove_event(int fd){
 
 int socketworker::mod_event(int fd){
     return 0;
+}
+
+void socketworker::add_event(int fd) {
+    cout << "AddEvent fd " << fd << endl;
+    //添加到epollP
+    struct epoll_event ev;
+    ev.events = EPOLLIN | EPOLLET;
+    ev.data.fd = fd;
+    if (epoll_ctl(efd, EPOLL_CTL_ADD, fd, &ev) == -1) {
+        cout << "AddEvent epoll_ctl Fail:" << strerror(errno) << endl;
+    }
 }

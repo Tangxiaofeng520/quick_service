@@ -1,7 +1,8 @@
 #pragma once
 
 #include <sys/epoll.h>
-
+#include <memory>
+#include "conn.h"
 class socketworker
 {
 private:
@@ -23,6 +24,7 @@ public:
     int mod_event(int fd);
 
     void onEvent(epoll_event ev);//epoll 事件处理
+    void onaccept(std::shared_ptr<conn> Conn);
 };
 
 
