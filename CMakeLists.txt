@@ -9,7 +9,8 @@ aux_source_directory(./src DIR_SRCS)
 # 用C++11
 add_definitions(-std=c++11)
 # 指定生成目标文件
-add_executable(quick_service ${DIR_SRCS} src/main.cpp include/conn.h src/conn.cpp)
+add_executable(quick_service ${DIR_SRCS})
+#add_executable(quick_service ${DIR_SRCS} src/main.cpp include/conn.h src/conn.cpp src/service_mgr.cpp src/work_mgr.cpp include/work_mgr.h)
 # 库文件
 find_package (Threads)
 target_link_libraries (quick_service ${CMAKE_THREAD_LIBS_INIT})

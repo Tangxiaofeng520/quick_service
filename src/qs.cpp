@@ -1,15 +1,23 @@
 #include "qs.h"
 #include <pthread.h>
-#include "Worker.h"
+#include "worker.h"
 #include "thread"
+#include "service_mgr.h"
+#include "memory"
+#include "work_mgr.h"
 using namespace std;
 
-qs* qs::inst;
-//qs::qs(/* args */)
-//{
-//    inst = this;
-//}
 
+qs* qs::inst;
+qs::qs(/* args */)
+{
+    inst = this;
+}
+
+void qs::init()
+{
+    serviceMgr = new service_mgr();
+}
 
 void qs::start()
 {
@@ -43,13 +51,24 @@ shared_ptr<service> qs::push_global_msg_queue(shared_ptr<service> srv)
 
 }
 
+void qs::send_msg_2_service(int sid, shared_ptr<basemsg> msg) {
+    auto service = serviceMgr->get_service(sid);
+    bool in_global = service->in_global();
+    service->pushMsg(msg);
+    if (!in_global)
+    {
+        pthread_spin_lock(&globalLock);
+        {
+            global_msg_queue.push(service);
+            service->set_in_global(true);
+        }
+        pthread_spin_unlock(&globalLock);
+    }
+    //唤起进程，不放在临界区里面  todo
+}
 
 void qs::start_workers()
 {
-    for(int i =0; i<WORKER_NUM;i++ ){
-        //Worker *worker = new Worker();
-        //worker.push_back(worker);
-        //thread *thread = new thread(*worker);
-        //threads.push_back(thread);
-    }
+    work_mgr* workerMgr = new work_mgr();
+    workerMgr->creat_works();
 }

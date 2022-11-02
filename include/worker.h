@@ -7,11 +7,11 @@ class worker
 private:
     /* data */
 public:
-    worker(/* args */);
-    ~worker();
+
+    worker(int id, int eachnum);
     int id;
     int eachNum ; //单次处理消息数
-
+    void operator()(); //线程函数
 };
 
 

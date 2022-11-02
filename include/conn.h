@@ -24,6 +24,7 @@ public:
     uint8_t type;
     int fd;
     uint32_t serviceId;
+    shared_ptr<char> buff;
     bool is_listen_conn();
 };
 

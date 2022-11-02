@@ -17,7 +17,7 @@ public:
 
     int start_socket(unsigned int port);
 
-    void add_event(int fd);
+    void add_event(int fd,int events);
 
     int remove_event(int fd);
 
@@ -25,6 +25,9 @@ public:
 
     void onEvent(epoll_event ev);//epoll 事件处理
     void onaccept(std::shared_ptr<conn> Conn);
+
+
+    void onRW(shared_ptr<conn> client_conn, bool isRead, bool isWrite);
 };
 
 

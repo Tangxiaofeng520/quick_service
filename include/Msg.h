@@ -34,6 +34,7 @@ public:
         SOCKET_RW = 3,
     }; 
     uint8_t type;           //消息类型
+    virtual ~basemsg(){};
 };
 
 
@@ -53,7 +54,7 @@ public:
 	int clientfd;//链接的fd
 };
 
-class socket_rw_mag : public basemsg {
+class socket_rw_msg : public basemsg {
 public:
 	int fd;
 	bool isread = false;

@@ -49,13 +49,6 @@ cmake_ninja_workdir = /home/diandian/Desktop/quick_service/cmake-build-debug/
 
 build cmake_object_order_depends_target_quick_service: phony || CMakeFiles/quick_service.dir
 
-build CMakeFiles/quick_service.dir/src/Worker.cpp.o: CXX_COMPILER__quick_service_Debug /home/diandian/Desktop/quick_service/src/Worker.cpp || cmake_object_order_depends_target_quick_service
-  DEP_FILE = CMakeFiles/quick_service.dir/src/Worker.cpp.o.d
-  FLAGS = -g   -std=c++11
-  INCLUDES = -I/home/diandian/Desktop/quick_service/include
-  OBJECT_DIR = CMakeFiles/quick_service.dir
-  OBJECT_FILE_DIR = CMakeFiles/quick_service.dir/src
-
 build CMakeFiles/quick_service.dir/src/conn.cpp.o: CXX_COMPILER__quick_service_Debug /home/diandian/Desktop/quick_service/src/conn.cpp || cmake_object_order_depends_target_quick_service
   DEP_FILE = CMakeFiles/quick_service.dir/src/conn.cpp.o.d
   FLAGS = -g   -std=c++11
@@ -84,8 +77,29 @@ build CMakeFiles/quick_service.dir/src/service.cpp.o: CXX_COMPILER__quick_servic
   OBJECT_DIR = CMakeFiles/quick_service.dir
   OBJECT_FILE_DIR = CMakeFiles/quick_service.dir/src
 
+build CMakeFiles/quick_service.dir/src/service_mgr.cpp.o: CXX_COMPILER__quick_service_Debug /home/diandian/Desktop/quick_service/src/service_mgr.cpp || cmake_object_order_depends_target_quick_service
+  DEP_FILE = CMakeFiles/quick_service.dir/src/service_mgr.cpp.o.d
+  FLAGS = -g   -std=c++11
+  INCLUDES = -I/home/diandian/Desktop/quick_service/include
+  OBJECT_DIR = CMakeFiles/quick_service.dir
+  OBJECT_FILE_DIR = CMakeFiles/quick_service.dir/src
+
 build CMakeFiles/quick_service.dir/src/socketworker.cpp.o: CXX_COMPILER__quick_service_Debug /home/diandian/Desktop/quick_service/src/socketworker.cpp || cmake_object_order_depends_target_quick_service
   DEP_FILE = CMakeFiles/quick_service.dir/src/socketworker.cpp.o.d
+  FLAGS = -g   -std=c++11
+  INCLUDES = -I/home/diandian/Desktop/quick_service/include
+  OBJECT_DIR = CMakeFiles/quick_service.dir
+  OBJECT_FILE_DIR = CMakeFiles/quick_service.dir/src
+
+build CMakeFiles/quick_service.dir/src/work_mgr.cpp.o: CXX_COMPILER__quick_service_Debug /home/diandian/Desktop/quick_service/src/work_mgr.cpp || cmake_object_order_depends_target_quick_service
+  DEP_FILE = CMakeFiles/quick_service.dir/src/work_mgr.cpp.o.d
+  FLAGS = -g   -std=c++11
+  INCLUDES = -I/home/diandian/Desktop/quick_service/include
+  OBJECT_DIR = CMakeFiles/quick_service.dir
+  OBJECT_FILE_DIR = CMakeFiles/quick_service.dir/src
+
+build CMakeFiles/quick_service.dir/src/worker.cpp.o: CXX_COMPILER__quick_service_Debug /home/diandian/Desktop/quick_service/src/worker.cpp || cmake_object_order_depends_target_quick_service
+  DEP_FILE = CMakeFiles/quick_service.dir/src/worker.cpp.o.d
   FLAGS = -g   -std=c++11
   INCLUDES = -I/home/diandian/Desktop/quick_service/include
   OBJECT_DIR = CMakeFiles/quick_service.dir
@@ -99,7 +113,7 @@ build CMakeFiles/quick_service.dir/src/socketworker.cpp.o: CXX_COMPILER__quick_s
 #############################################
 # Link the executable quick_service
 
-build quick_service: CXX_EXECUTABLE_LINKER__quick_service_Debug CMakeFiles/quick_service.dir/src/Worker.cpp.o CMakeFiles/quick_service.dir/src/conn.cpp.o CMakeFiles/quick_service.dir/src/main.cpp.o CMakeFiles/quick_service.dir/src/qs.cpp.o CMakeFiles/quick_service.dir/src/service.cpp.o CMakeFiles/quick_service.dir/src/socketworker.cpp.o
+build quick_service: CXX_EXECUTABLE_LINKER__quick_service_Debug CMakeFiles/quick_service.dir/src/conn.cpp.o CMakeFiles/quick_service.dir/src/main.cpp.o CMakeFiles/quick_service.dir/src/qs.cpp.o CMakeFiles/quick_service.dir/src/service.cpp.o CMakeFiles/quick_service.dir/src/service_mgr.cpp.o CMakeFiles/quick_service.dir/src/socketworker.cpp.o CMakeFiles/quick_service.dir/src/work_mgr.cpp.o CMakeFiles/quick_service.dir/src/worker.cpp.o
   FLAGS = -g
   LINK_FLAGS = -rdynamic
   LINK_LIBRARIES = -lpthread
