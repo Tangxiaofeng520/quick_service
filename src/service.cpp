@@ -81,17 +81,21 @@ void service::on_rw_msg(shared_ptr<basemsg> msg){
 
 }
 
-void service::process_msg()
+bool service::process_msg()
 {
-    pthread_spin_lock(&queueLock);
-    {
-        auto msg = msg_queue.front();
-        if (msg)
-        {
-            on_msg(msg);
-            msg_queue.pop();
-        };
-
+    auto msg = popMsg();
+    if (msg) {
+        on_msg(msg);
+        return true;
     }
-    pthread_spin_unlock(&queueLock);
+    return false;
+}
+
+void service::process_msgs(int num){
+    for(int i=0; i<num; i++) {
+        bool succ = process_msg();
+        if(!succ){
+            break;
+        }
+    }
 }

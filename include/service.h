@@ -29,6 +29,8 @@ public:
 
     void on_rw_msg(shared_ptr<basemsg> msg);
 
-    void process_msg();
+    bool process_msg();
+
+    void process_msgs(int num);
 };
 

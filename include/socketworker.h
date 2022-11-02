@@ -11,8 +11,7 @@ public:
     void init();
     void operator()(); //线程函数
     int efd; //操作epoll实例的 文件描述符
-    socketworker(/* args */);
-    ~socketworker();
+    int  listen_fd;
 
 
     int start_socket(unsigned int port);
@@ -28,6 +27,8 @@ public:
 
 
     void onRW(shared_ptr<conn> client_conn, bool isRead, bool isWrite);
+
+    void clone_socket();
 };
 
 

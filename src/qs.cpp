@@ -5,6 +5,7 @@
 #include "service_mgr.h"
 #include "memory"
 #include "work_mgr.h"
+#include "socketworker.h"
 using namespace std;
 
 
@@ -67,8 +68,23 @@ void qs::send_msg_2_service(int sid, shared_ptr<basemsg> msg) {
     //唤起进程，不放在临界区里面  todo
 }
 
+
+
 void qs::start_workers()
 {
     work_mgr* workerMgr = new work_mgr();
     workerMgr->creat_works();
+}
+
+void qs::start_socketworkers()
+{
+    socketWorker = new socketworker();
+    socketWorker->init();
+    socketWorker->start_socket(8002);
+    thread* socketthread = new thread(*socketWorker);
+}
+
+void qs::close_socketworkers()
+{
+    socketWorker->clone_socket();
 }

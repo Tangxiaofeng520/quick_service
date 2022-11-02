@@ -15,6 +15,8 @@ public:
     vector<worker*> workers ;
     vector<thread*> workertheads;
     void creat_works();
+
+    void wait();
 };
 
 
