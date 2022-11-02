@@ -1,14 +1,12 @@
 # ninja log v5
 7	787	1667374369309850826	CMakeFiles/quick_service.dir/src/service_mgr.cpp.o	e88767cab14b60cf
+3	710	1667375069932099227	CMakeFiles/quick_service.dir/src/worker.cpp.o	7832abab48ef721c
 5	712	1667374805068378627	CMakeFiles/quick_service.dir/src/qs.cpp.o	c889f11ff75fc8d5
 13	1083	1667271519430649156	CMakeFiles/quick_service.dir/src/conn.cpp.o	176d0bc2160ae9e7
-0	36	1667375069200663737	build.ninja	71c39ad8f6515668
+0	108	1667375503794628483	build.ninja	71c39ad8f6515668
 1	26	1662710685382666548	CMakeFiles/quick_service.dir/src/Worker.cpp.o	cac98690bb055ba8
 7	799	1667374327776964309	CMakeFiles/quick_service.dir/src/service.cpp.o	8cde1f3bbfc821ce
 15	603	1667271518950856571	CMakeFiles/quick_service.dir/src/main.cpp.o	def58a6f42ffba4f
 5	742	1667374495187802248	CMakeFiles/quick_service.dir/src/socketworker.cpp.o	8790b60c78aec09a
 7	587	1667374804940513388	CMakeFiles/quick_service.dir/src/work_mgr.cpp.o	7bda0183937e4d8f
-595	689	1663511385155462020	quick_service	4aabb4ad56ebad6
-0	108	1667375069200663737	build.ninja	71c39ad8f6515668
-3	710	1667375069932099227	CMakeFiles/quick_service.dir/src/worker.cpp.o	7832abab48ef721c
 711	982	1667375070199891758	quick_service	1274c034eaded539
