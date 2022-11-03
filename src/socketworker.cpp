@@ -9,6 +9,7 @@
 #include <unistd.h>
 #include "conn.h"
 #include "Msg.h"
+#include "qs.h"
 #define BACKLOG 128
 using namespace std;
 conn_mgr * Conn_mgr = NULL;
@@ -72,7 +73,7 @@ void socketworker::onRW(shared_ptr<conn> client_conn, bool isRead,bool isWrite )
     msg->fd = client_conn->fd;
     msg->isread = isRead;
     msg->iswrite = isWrite;
-    // 推给service todo
+    qs::inst->send_msg_2_service(client_conn->serviceId,msg);
 }
 
 void socketworker::onaccept(shared_ptr<conn> listenconn)

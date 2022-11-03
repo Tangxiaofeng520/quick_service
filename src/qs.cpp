@@ -66,13 +66,14 @@ void qs::send_msg_2_service(int sid, shared_ptr<basemsg> msg) {
         pthread_spin_unlock(&globalLock);
     }
     //唤起进程，不放在临界区里面  todo
+    workerMgr->check_and_weakup();
 }
 
 
 
 void qs::start_workers()
 {
-    work_mgr* workerMgr = new work_mgr();
+    workerMgr = new work_mgr();
     workerMgr->creat_works();
 }
 
@@ -88,3 +89,11 @@ void qs::close_socketworkers()
 {
     socketWorker->clone_socket();
 }
+
+int qs::get_globalLen(){
+    return globalLen;
+};
+
+work_mgr* qs::get_work_mgr(){
+    return workerMgr;
+};

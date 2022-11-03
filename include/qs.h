@@ -9,6 +9,8 @@
 #include "service_mgr.h"
 //class Worker;
 #include "socketworker.h"
+#include "work_mgr.h"
+
 class qs
 {
     public:
@@ -16,9 +18,9 @@ class qs
     static qs* inst;
     service_mgr* serviceMgr{};
     socketworker* socketWorker;
-
+    work_mgr* workerMgr;
     void close_socketworkers();
-
+    int globalLen = 0;
 public:
     void init();
     void start();
@@ -32,8 +34,6 @@ public:
     void start_socketworkers();
 //private:
     queue<shared_ptr<service>> global_msg_queue;  //全局队列
-
-    int WORKER_NUM = 3;
     vector<worker*> workers;
     vector<thread*> threads;
 
@@ -42,6 +42,9 @@ public:
     void send_msg_2_service(int sid, shared_ptr<basemsg> msg);
 
 
+    int get_globalLen();
+
+    work_mgr *get_work_mgr();
 };
 
 
