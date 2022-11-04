@@ -33,7 +33,7 @@ class conn_mgr {
 public:
     conn_mgr(/* args */);
     ~conn_mgr();
-    void add_conn(int fd, uint32_t id, conn::TYPE type);
+    shared_ptr<conn> add_conn(int fd, uint32_t id, conn::TYPE type);
     shared_ptr<conn> get_conn(int fd);
     bool remove_conn(int fd);
     static  conn_mgr *getInstance();

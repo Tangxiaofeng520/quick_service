@@ -21,6 +21,8 @@ class qs
     work_mgr* workerMgr;
     void close_socketworkers();
     int globalLen = 0;
+    ~qs();
+    thread* socketthread;
 public:
     void init();
     void start();

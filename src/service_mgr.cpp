@@ -5,7 +5,15 @@
 #include <iostream>
 #include <unistd.h>
 #include <string.h>
+service_mgr::service_mgr()
+{
+    pthread_rwlock_init(&servicesLock,NULL);
+}
 
+service_mgr::~service_mgr()
+{
+    pthread_rwlock_destroy(&servicesLock);
+}
 
 shared_ptr<service> service_mgr::get_service(uint32_t sid){
     shared_ptr<service> srv = NULL;
@@ -36,4 +44,11 @@ shared_ptr<service> service_mgr::new_service(){
 
 uint32_t  service_mgr::get_maxid() {
     return  maxid ++ ;
+}
+
+void service_mgr::service_exit(uint32_t id){
+    shared_ptr<service> srv = get_service(id);
+    if (!srv) return;
+    srv->exit();
+
 }

@@ -16,24 +16,32 @@ bool conn::is_listen_conn()
 }
 
 conn_mgr::conn_mgr(){
-    assert(pthread_rwlock_init(&connsLock, NULL)==0);
+    cout<<"conn_mgr() " <<endl;
+    int r = pthread_rwlock_init(&connsLock, NULL);
+    if (r !=0 )
+    {
+        cout<<"pthread_rwlock_init fail r = "<< r <<endl;
+    }
 }
 
 conn_mgr::~conn_mgr(){
+    cout<<"~conn_mgr"<<endl;
     pthread_rwlock_destroy(&connsLock);
 }
 
-void conn_mgr :: add_conn (int fd,uint32_t id, conn::TYPE type)
+shared_ptr<conn> conn_mgr :: add_conn (int fd,uint32_t id, conn::TYPE type)
 {
     auto new_conn = make_shared<conn>();
     new_conn->fd = fd;
     new_conn->type = type;
     new_conn->serviceId = id;
-    pthread_rwlock_wrlock(&connsLock);
+    int a = pthread_rwlock_wrlock(&connsLock);
+    cout<<a;
     {
         conns.emplace(fd, new_conn);
     }
     pthread_rwlock_unlock(&connsLock);
+    return new_conn;
 }
 
 shared_ptr<conn> conn_mgr::get_conn(int fd)
@@ -46,6 +54,7 @@ shared_ptr<conn> conn_mgr::get_conn(int fd)
             find_conn = iter->second;
         }
     }
+    pthread_rwlock_unlock(&connsLock);
     return find_conn;
 };
 

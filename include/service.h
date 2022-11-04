@@ -32,5 +32,7 @@ public:
     bool process_msg();
 
     void process_msgs(int num);
+
+    void exit();
 };
 

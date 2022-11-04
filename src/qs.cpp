@@ -1,5 +1,6 @@
 #include "qs.h"
 #include <pthread.h>
+#include <iostream>
 #include "worker.h"
 #include "thread"
 #include "service_mgr.h"
@@ -14,7 +15,9 @@ qs::qs(/* args */)
 {
     inst = this;
 }
-
+qs::~qs(){
+    cout<<"~qs()"<<endl;
+}
 void qs::init()
 {
     serviceMgr = new service_mgr();
@@ -65,10 +68,9 @@ void qs::send_msg_2_service(int sid, shared_ptr<basemsg> msg) {
         }
         pthread_spin_unlock(&globalLock);
     }
-    //唤起进程，不放在临界区里面  todo
+    //唤起进程，不放在临界区里面
     workerMgr->check_and_weakup();
 }
-
 
 
 void qs::start_workers()
@@ -81,8 +83,8 @@ void qs::start_socketworkers()
 {
     socketWorker = new socketworker();
     socketWorker->init();
-    socketWorker->start_socket(8002);
-    thread* socketthread = new thread(*socketWorker);
+    socketWorker->start_socket(8005);
+    socketthread = new thread(*socketWorker);
 }
 
 void qs::close_socketworkers()

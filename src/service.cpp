@@ -11,6 +11,7 @@ service::service() {
 }
 
 service::~service() {
+    cout<<"~~service"<<endl;
     pthread_spin_destroy(&queueLock);
 }
 
@@ -45,6 +46,7 @@ void service::set_in_global(bool flag){
 }
 
 void service::on_msg(shared_ptr<basemsg> msg){
+    cout<<"serviceid == "<<id<<" ::on_msg "<<endl;
     if (msg->type == basemsg::TYPE::SOCKET_ACCEPT)
     {
 //        这里用到了动态类型转换。代
@@ -70,15 +72,15 @@ void service::on_msg(shared_ptr<basemsg> msg){
 };
 
 void service::on_accept_msg(shared_ptr<basemsg> msg){
-
+    cout<<"serviceid == "<<id<<" ::on_accept_msg "<<endl;
 }
 
 void service::on_service_msg(shared_ptr<basemsg> msg){
-
+    cout<<"serviceid == "<<id<<" ::on_service_msg "<<endl;
 }
 
 void service::on_rw_msg(shared_ptr<basemsg> msg){
-
+    cout<<"serviceid == "<<id<<" ::on_rw_msg "<<endl;
 }
 
 bool service::process_msg()
@@ -98,4 +100,8 @@ void service::process_msgs(int num){
             break;
         }
     }
+}
+
+void service::exit(){
+    cout<<"serviceid == "<<id<<" ::exit "<<endl;
 }

@@ -13,6 +13,7 @@ work_mgr::work_mgr()
 
 work_mgr::~work_mgr()
 {
+    cout<<"~~work_mgr"<<endl;
     pthread_cond_destroy(&sleepCond);
     pthread_mutex_destroy(&sleepMtx);
 }

@@ -22,6 +22,11 @@ socketworker::init() {
     cout<< "socketworker::init finish"<<endl;
 }
 
+socketworker::~socketworker(){
+    cout<<"~socketworker()"<<endl;
+    //clone_socket();
+}
+
 void socketworker::operator()(){
     const int EVENT_SIZE = 64;
     struct epoll_event events[EVENT_SIZE];
@@ -32,6 +37,7 @@ void socketworker::operator()(){
         {
             epoll_event ev = events[i];
             onEvent(ev);
+            cout<<"onEvent finsih"<<endl;
         }
     }
 }
@@ -40,6 +46,7 @@ void socketworker::onEvent(epoll_event ev) {
     cout<<"onEvent"<<endl;
     int fd = ev.data.fd;
     auto Conn = Conn_mgr->get_conn(fd);
+    cout<<"get_conn ok "<<endl;
     if(Conn == NULL){
         cout << "OnEvent error, conn == NULL" << endl;
         return;
@@ -80,22 +87,30 @@ void socketworker::onaccept(shared_ptr<conn> listenconn)
 {
     sockaddr client_adr{};
     socklen_t client_len;
+    cout<<"accept begin"<<endl;
     int client_fd = accept(listenconn->fd, &client_adr, &client_len);
-    if (client_fd<0){
-        cout<<"client_fd =  "<<client_fd<<endl;
-        return;
-    }
+    cout<<"client_fd "<<client_fd<<endl;
+//    if (client_fd<0){
+//        cout<<"client_fd =  "<<client_fd<<" errno = "<< errno << EMFILE <<endl;
+//    }
     //设置非阻塞
+    cout<<"add_event fcntl "<<endl;
     fcntl(client_fd, F_SETFL, O_NONBLOCK);
+    cout<<"add_event begin"<<endl;
     //添加conn
-    Conn_mgr->add_conn(client_fd,0,conn::TYPE::CLIENT);
+    shared_ptr<conn>client_conn = Conn_mgr->add_conn(client_fd,0,conn::TYPE::CLIENT);
     add_event(client_fd,(EPOLLIN | EPOLLET));
+    cout<<"add_event end"<< endl;
     //创建message
     auto msg= make_shared<socket_accept_msg>();
     msg->type=basemsg::TYPE::SOCKET_ACCEPT ;
     msg->listenfd = listenconn->fd;
     msg->clientfd = client_fd;
-    // 推给service  todo
+    // 推给service
+    cout<<"send_msg_2_service"<< endl;
+    qs::inst->send_msg_2_service(client_conn->serviceId,msg);
+    cout<<"send_msg_2_service"<< endl;
+    cout << "socketworker::onaccept finish" << endl;
 };
 
 int socketworker::start_socket(uint32_t port) {
@@ -112,9 +127,11 @@ int socketworker::start_socket(uint32_t port) {
     addr.sin_port = htons(port);
     addr.sin_addr.s_addr = htonl(INADDR_ANY);
     //bind
+    bool bReuseaddr=true;
+    setsockopt(listen_fd, SOL_SOCKET, SO_REUSEADDR,(const char*)&bReuseaddr,sizeof(bool));
     int r = bind(listen_fd, (struct sockaddr*)&addr, sizeof(addr));
     if( r == -1){
-        cout << "bind error, bind fail" << endl;
+        cout << "bind error,errno = " << errno<< endl;
         return -1;
     }
     //监听
@@ -124,7 +141,7 @@ int socketworker::start_socket(uint32_t port) {
         return -1;
     }
     Conn_mgr->add_conn(listen_fd,0,conn::TYPE::LISTEN);
-    add_event(listen_fd,(EPOLLIN | EPOLLET));
+    add_event(listen_fd);
     cout<< "socketworker::start finish"<<endl;
     return listen_fd;
 }
@@ -133,6 +150,7 @@ void socketworker::clone_socket(){
     close(listen_fd);
     remove_event(listen_fd);
 }
+
 int socketworker::remove_event(int fd){
     cout<<"remove event"<<endl;
     int code = epoll_ctl(efd,EPOLL_CTL_DEL,fd,NULL);
@@ -145,6 +163,17 @@ int socketworker::remove_event(int fd){
 
 int socketworker::mod_event(int fd){
     return 0;
+}
+
+void socketworker::add_event(int fd ) {
+    cout << "AddEvent fd " << fd << endl;
+    //添加到epollP
+    struct epoll_event ev;
+    ev.events = EPOLLIN | EPOLLET;
+    ev.data.fd = fd;
+    if (epoll_ctl(efd, EPOLL_CTL_ADD, fd, &ev) == -1) {
+        cout << "AddEvent epoll_ctl Fail:" << strerror(errno) << endl;
+    }
 }
 
 void socketworker::add_event(int fd ,int events) {
