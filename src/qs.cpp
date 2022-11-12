@@ -14,22 +14,27 @@ qs* qs::inst;
 qs::qs(/* args */)
 {
     inst = this;
+    pthread_spin_init(&globalLock, PTHREAD_PROCESS_PRIVATE );
 }
+
 qs::~qs(){
     cout<<"~qs()"<<endl;
+    pthread_spin_destroy(&globalLock );
 }
+
 void qs::init()
 {
     serviceMgr = new service_mgr();
+    connMgr = conn_mgr::getInstance();
 }
 
 void qs::start()
 {
-    pthread_spin_init(&globalLock, PTHREAD_PROCESS_PRIVATE );
 }
 
 shared_ptr<service> qs::pop_global_msg_queue()
 {
+
     shared_ptr<service> srv = NULL;
     pthread_spin_lock(&globalLock);
     {
@@ -57,16 +62,15 @@ shared_ptr<service> qs::push_global_msg_queue(shared_ptr<service> srv)
 
 void qs::send_msg_2_service(int sid, shared_ptr<basemsg> msg) {
     auto service = serviceMgr->get_service(sid);
+    if (!service){
+        cout<<"service empty "<<endl;
+    }
     bool in_global = service->in_global();
     service->pushMsg(msg);
     if (!in_global)
     {
-        pthread_spin_lock(&globalLock);
-        {
-            global_msg_queue.push(service);
-            service->set_in_global(true);
-        }
-        pthread_spin_unlock(&globalLock);
+        push_global_msg_queue(service);
+        service->set_in_global(true);
     }
     //唤起进程，不放在临界区里面
     workerMgr->check_and_weakup();
@@ -83,7 +87,8 @@ void qs::start_socketworkers()
 {
     socketWorker = new socketworker();
     socketWorker->init();
-    socketWorker->start_socket(8005);
+
+    socketWorker->start_socket(8002);
     socketthread = new thread(*socketWorker);
 }
 
@@ -98,4 +103,18 @@ int qs::get_globalLen(){
 
 work_mgr* qs::get_work_mgr(){
     return workerMgr;
+};
+
+
+service_mgr* qs::get_service_mgr(){
+    return serviceMgr;
+};
+
+
+conn_mgr* qs::get_conn_mgr(){
+    return connMgr;
+};
+
+socketworker* qs::get_socketworker(){
+    return socketWorker;
 };

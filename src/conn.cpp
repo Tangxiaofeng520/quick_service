@@ -4,80 +4,143 @@
 
 #include <cassert>
 #include "conn.h"
+#include "qs.h"
+#include "../proto/user.pb.h"
+
 #include <iostream>
 #include <memory>
 #include <mutex>
-conn_mgr* conn_mgr::m_pInstance = nullptr;//懒汉式的写法
-mutex conn_mgr::m_mutex;
+#include <unistd.h>
 
-bool conn::is_listen_conn()
-{
-    return type == conn::TYPE::LISTEN;
-}
-
-conn_mgr::conn_mgr(){
-    cout<<"conn_mgr() " <<endl;
-    int r = pthread_rwlock_init(&connsLock, NULL);
-    if (r !=0 )
-    {
-        cout<<"pthread_rwlock_init fail r = "<< r <<endl;
-    }
-}
-
-conn_mgr::~conn_mgr(){
-    cout<<"~conn_mgr"<<endl;
-    pthread_rwlock_destroy(&connsLock);
-}
-
-shared_ptr<conn> conn_mgr :: add_conn (int fd,uint32_t id, conn::TYPE type)
-{
-    auto new_conn = make_shared<conn>();
-    new_conn->fd = fd;
-    new_conn->type = type;
-    new_conn->serviceId = id;
-    int a = pthread_rwlock_wrlock(&connsLock);
-    cout<<a;
-    {
-        conns.emplace(fd, new_conn);
-    }
-    pthread_rwlock_unlock(&connsLock);
-    return new_conn;
-}
-
-shared_ptr<conn> conn_mgr::get_conn(int fd)
-{
-    shared_ptr<conn> find_conn = NULL;
-    pthread_rwlock_rdlock(&connsLock);
-    {
-        unordered_map<uint32_t, shared_ptr<conn>>::iterator iter = conns.find(fd);
-        if (iter != conns.end()){
-            find_conn = iter->second;
+void conn::read_buff(){
+    const int BUFFSIZE = 512;
+    char buff[BUFFSIZE];
+    int len = 0;
+    do {
+        len = read(fd, &buff, BUFFSIZE);
+        cout<< "read len = "<< len << endl;
+        if(len > 0){
+            OnSocketData(fd, buff, len);
         }
-    }
-    pthread_rwlock_unlock(&connsLock);
-    return find_conn;
-};
+    }while(len == BUFFSIZE);
 
-bool conn_mgr::remove_conn(int fd){
-    int result;
-    pthread_rwlock_wrlock(&connsLock);
+    if(len <= 0 && errno != EAGAIN) { //数据读完
+        cout<<"buff read end"<<endl;
+    }
+}
+
+
+void conn::OnSocketData(int fd, const char* buff, int len) {
+    GOOGLE_PROTOBUF_VERIFY_VERSION;
+    cout << "OnSocketData" << fd << endl;
+    //cout << "OnSocketData" << to_string(buff) << endl;
+    string strData(buff);
+//    IM::Account a1;
+//    a1.set_id(1);
+//    a1.set_name("first");
+//    a1.set_password("12345678");
+//
+//    string serializeToStr;
+//    a1.SerializeToString(&serializeToStr);
+    IM::Account account2;
+    if(!account2.ParseFromString(strData))
     {
-        result = conns.erase(fd);
+        cerr << "failed to parse account2." << endl;
+        return ;
     }
-    pthread_rwlock_unlock(&connsLock);
-    return result == 1;
-};
+    cout << "反序列化：" << endl;
+    cout << account2.id() << endl;
+    cout << account2.name() << endl;
+    cout << account2.password() << endl;
+    google::protobuf::ShutdownProtobufLibrary();
 
-//懒汉式单例
-conn_mgr * conn_mgr ::getInstance()
+}
+
+void conn::EntireWriteWhenEmpty(shared_ptr<char> buff,streamsize len)
 {
-
-    m_mutex.lock();//防止多线程调 生成多个实例
-    {
-        if (m_pInstance == NULL)
-            m_pInstance = new conn_mgr();
-        return m_pInstance;
+    char* s = buff.get() ;
+    //谨记：>=0, -1&&EAGAIN, -1&&EINTR, -1&&其他
+    streamsize n = write(fd, s, len);
+    if(n < 0 && errno == EINTR) { }; //仅提醒你要注意
+    cout << "EntireWriteWhenEmpty write n=" << n << endl;
+    //情况1-1：全部写完
+    if(n >= 0 && n == len) {
+        return;
     }
-    m_mutex.unlock();
+    //情况1-2：写一部分（或没写入）
+    if( (n > 0 && n < len) || (n < 0 && errno == EAGAIN) ) {
+        auto obj = make_shared<WriteObject>();
+        obj->start = n;
+        obj->buff = buff;
+        obj->len = len;
+        writers.push(obj);
+        socketworker* socketworker_obj = qs::inst->get_socketworker();
+        socketworker_obj->mod_event(fd, true);  //修改 epoll events 让下次可读的时候通知
+        return;
+    }
+    //情况1-3：真的发生错误
+    cout << "EntireWrite write error " <<  endl;
+}
 
-};
+void conn::EntireWriteWhenNotEmpty(shared_ptr<char> buff,streamsize len)
+{
+    auto obj = make_shared<WriteObject>();
+    obj->start = 0;
+    obj->buff = buff;
+    obj->len = len;
+    writers.push(obj);
+}
+
+//上层调用写入 buff
+void conn::EntireWrite(shared_ptr<char> buff, streamsize len) {
+    //情况1：没有待写入数据，先尝试写入
+    if(writers.empty()) {
+        EntireWriteWhenEmpty(buff, len);
+    }
+        //情况2：有待写入数据，添加到末尾
+    else{
+        EntireWriteWhenNotEmpty(buff, len);
+    }
+}
+
+// epoll 通知可写 时写入
+void conn::OnWriteable(){
+    while(WriteFrontObj()){
+        //循环
+    }
+    if (writers.empty()){
+        socketworker* socketworker_obj = qs::inst->get_socketworker();
+        socketworker_obj->mod_event(fd, false);
+    }
+}
+
+//返回值:是否完整的写入了一条
+bool conn::WriteFrontObj() {
+    //没待写数据
+    if(writers.empty()) {
+        return false;
+    }
+    //获取第一条
+    auto obj = writers.front();
+
+    //谨记：>=0, -1&&EAGAIN, -1&&EINTR, -1&&其他
+    char* s = obj->buff.get() + obj->start;
+    int len = obj->len - obj->start;
+    int n = write(fd, s, len);
+    cout << "WriteFrontObj write n=" << n << endl;
+    if(n < 0 && errno == EINTR) { }; //仅提醒你要注意
+    //情况1-1：全部写完
+    if(n >= 0 && n == len) {
+        writers.pop(); //出队
+        return true;
+    }
+    //情况1-2：写一部分（或没写入）
+    if( (n > 0 && n < len) || (n < 0 && errno == EAGAIN) ) {
+        obj->start += n;
+        return false;
+    }
+    //情况1-3：真的发生错误
+    cout << "EntireWrite write error " << endl;
+    return true;
+}
+

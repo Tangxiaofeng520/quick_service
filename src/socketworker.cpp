@@ -7,8 +7,10 @@
 #include <iostream>
 #include <cstring>
 #include <unistd.h>
+#include <csignal>
 #include "conn.h"
 #include "Msg.h"
+#include "service.h"
 #include "qs.h"
 #define BACKLOG 128
 using namespace std;
@@ -18,7 +20,8 @@ void
 socketworker::init() {
     efd = epoll_create(1024);
     assert(efd > 0);
-    Conn_mgr = conn_mgr::getInstance();
+    Conn_mgr = qs::inst->get_conn_mgr();
+    //service_mgr* serviceMgr = qs::inst->get_service_mgr();
     cout<< "socketworker::init finish"<<endl;
 }
 
@@ -37,7 +40,6 @@ void socketworker::operator()(){
         {
             epoll_event ev = events[i];
             onEvent(ev);
-            cout<<"onEvent finsih"<<endl;
         }
     }
 }
@@ -55,7 +57,7 @@ void socketworker::onEvent(epoll_event ev) {
     bool isRead = ev.events & EPOLLIN;
     bool isWrite = ev.events & EPOLLOUT;
     bool isError = ev.events & EPOLLERR;
-
+    cout<<"onEvent"<<isRead<< isWrite <<isError <<endl;
     if (isError) {
         cout << "event error" << endl;
     };
@@ -76,7 +78,7 @@ void socketworker::onEvent(epoll_event ev) {
 void socketworker::onRW(shared_ptr<conn> client_conn, bool isRead,bool isWrite )
 {
     auto msg= make_shared<socket_rw_msg>();
-    msg->type=basemsg::TYPE::SOCKET_ACCEPT ;
+    msg->type=basemsg::TYPE::SOCKET_RW ;
     msg->fd = client_conn->fd;
     msg->isread = isRead;
     msg->iswrite = isWrite;
@@ -97,8 +99,12 @@ void socketworker::onaccept(shared_ptr<conn> listenconn)
     cout<<"add_event fcntl "<<endl;
     fcntl(client_fd, F_SETFL, O_NONBLOCK);
     cout<<"add_event begin"<<endl;
+    //创建service
+    service_mgr* serviceMgr = qs::inst->get_service_mgr();
+    auto srv = serviceMgr->new_service();
+
     //添加conn
-    shared_ptr<conn>client_conn = Conn_mgr->add_conn(client_fd,0,conn::TYPE::CLIENT);
+    shared_ptr<conn>client_conn = Conn_mgr->add_conn(client_fd,srv->id,conn::TYPE::CLIENT);
     add_event(client_fd,(EPOLLIN | EPOLLET));
     cout<<"add_event end"<< endl;
     //创建message
@@ -114,6 +120,7 @@ void socketworker::onaccept(shared_ptr<conn> listenconn)
 };
 
 int socketworker::start_socket(uint32_t port) {
+    //signal(SIGPIPE,SIG_IGN);
     //创建socket
     listen_fd = socket(AF_INET,SOCK_STREAM,0);
     cout<<"listen_fd = "<<listen_fd<<endl;
@@ -140,7 +147,9 @@ int socketworker::start_socket(uint32_t port) {
         cout << "listen error," << endl;
         return -1;
     }
-    Conn_mgr->add_conn(listen_fd,0,conn::TYPE::LISTEN);
+    service_mgr* serviceMgr = qs::inst->get_service_mgr();
+    auto srv = serviceMgr->new_service();
+    Conn_mgr->add_conn(listen_fd,srv->id,conn::TYPE::LISTEN);
     add_event(listen_fd);
     cout<< "socketworker::start finish"<<endl;
     return listen_fd;
@@ -161,8 +170,20 @@ int socketworker::remove_event(int fd){
     return 0;
 }
 
-int socketworker::mod_event(int fd){
-    return 0;
+void socketworker::mod_event(int fd, bool epollOut){
+    cout << "ModifyEvent fd " << fd << " " << epollOut << endl;
+    struct epoll_event ev;
+    ev.data.fd = fd;
+
+    if(epollOut){
+        ev.events = EPOLLIN | EPOLLET | EPOLLOUT;
+    }
+    else
+    {
+        ev.events = EPOLLIN | EPOLLET ;
+    }
+    epoll_ctl(efd, EPOLL_CTL_MOD, fd, &ev);
+
 }
 
 void socketworker::add_event(int fd ) {

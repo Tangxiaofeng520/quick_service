@@ -51,59 +51,73 @@ build cmake_object_order_depends_target_quick_service: phony || CMakeFiles/quick
 
 build CMakeFiles/quick_service.dir/src/conn.cpp.o: CXX_COMPILER__quick_service_Debug /home/diandian/Desktop/quick_service/src/conn.cpp || cmake_object_order_depends_target_quick_service
   DEP_FILE = CMakeFiles/quick_service.dir/src/conn.cpp.o.d
-  FLAGS = -g   -std=c++11
-  INCLUDES = -I/home/diandian/Desktop/quick_service/include
+  FLAGS = -lprotobuf  -std=c++11  -lpthread  -g   -std=c++11
+  INCLUDES = -I/home/diandian/Desktop/quick_service/include -I/home/diandian/Desktop/quick_service/proto/include -I/home/diandian/Desktop/quick_service/cmake-build-debug
+  OBJECT_DIR = CMakeFiles/quick_service.dir
+  OBJECT_FILE_DIR = CMakeFiles/quick_service.dir/src
+
+build CMakeFiles/quick_service.dir/src/conn_mgr.cpp.o: CXX_COMPILER__quick_service_Debug /home/diandian/Desktop/quick_service/src/conn_mgr.cpp || cmake_object_order_depends_target_quick_service
+  DEP_FILE = CMakeFiles/quick_service.dir/src/conn_mgr.cpp.o.d
+  FLAGS = -lprotobuf  -std=c++11  -lpthread  -g   -std=c++11
+  INCLUDES = -I/home/diandian/Desktop/quick_service/include -I/home/diandian/Desktop/quick_service/proto/include -I/home/diandian/Desktop/quick_service/cmake-build-debug
   OBJECT_DIR = CMakeFiles/quick_service.dir
   OBJECT_FILE_DIR = CMakeFiles/quick_service.dir/src
 
 build CMakeFiles/quick_service.dir/src/main.cpp.o: CXX_COMPILER__quick_service_Debug /home/diandian/Desktop/quick_service/src/main.cpp || cmake_object_order_depends_target_quick_service
   DEP_FILE = CMakeFiles/quick_service.dir/src/main.cpp.o.d
-  FLAGS = -g   -std=c++11
-  INCLUDES = -I/home/diandian/Desktop/quick_service/include
+  FLAGS = -lprotobuf  -std=c++11  -lpthread  -g   -std=c++11
+  INCLUDES = -I/home/diandian/Desktop/quick_service/include -I/home/diandian/Desktop/quick_service/proto/include -I/home/diandian/Desktop/quick_service/cmake-build-debug
   OBJECT_DIR = CMakeFiles/quick_service.dir
   OBJECT_FILE_DIR = CMakeFiles/quick_service.dir/src
 
 build CMakeFiles/quick_service.dir/src/qs.cpp.o: CXX_COMPILER__quick_service_Debug /home/diandian/Desktop/quick_service/src/qs.cpp || cmake_object_order_depends_target_quick_service
   DEP_FILE = CMakeFiles/quick_service.dir/src/qs.cpp.o.d
-  FLAGS = -g   -std=c++11
-  INCLUDES = -I/home/diandian/Desktop/quick_service/include
+  FLAGS = -lprotobuf  -std=c++11  -lpthread  -g   -std=c++11
+  INCLUDES = -I/home/diandian/Desktop/quick_service/include -I/home/diandian/Desktop/quick_service/proto/include -I/home/diandian/Desktop/quick_service/cmake-build-debug
   OBJECT_DIR = CMakeFiles/quick_service.dir
   OBJECT_FILE_DIR = CMakeFiles/quick_service.dir/src
 
 build CMakeFiles/quick_service.dir/src/service.cpp.o: CXX_COMPILER__quick_service_Debug /home/diandian/Desktop/quick_service/src/service.cpp || cmake_object_order_depends_target_quick_service
   DEP_FILE = CMakeFiles/quick_service.dir/src/service.cpp.o.d
-  FLAGS = -g   -std=c++11
-  INCLUDES = -I/home/diandian/Desktop/quick_service/include
+  FLAGS = -lprotobuf  -std=c++11  -lpthread  -g   -std=c++11
+  INCLUDES = -I/home/diandian/Desktop/quick_service/include -I/home/diandian/Desktop/quick_service/proto/include -I/home/diandian/Desktop/quick_service/cmake-build-debug
   OBJECT_DIR = CMakeFiles/quick_service.dir
   OBJECT_FILE_DIR = CMakeFiles/quick_service.dir/src
 
 build CMakeFiles/quick_service.dir/src/service_mgr.cpp.o: CXX_COMPILER__quick_service_Debug /home/diandian/Desktop/quick_service/src/service_mgr.cpp || cmake_object_order_depends_target_quick_service
   DEP_FILE = CMakeFiles/quick_service.dir/src/service_mgr.cpp.o.d
-  FLAGS = -g   -std=c++11
-  INCLUDES = -I/home/diandian/Desktop/quick_service/include
+  FLAGS = -lprotobuf  -std=c++11  -lpthread  -g   -std=c++11
+  INCLUDES = -I/home/diandian/Desktop/quick_service/include -I/home/diandian/Desktop/quick_service/proto/include -I/home/diandian/Desktop/quick_service/cmake-build-debug
   OBJECT_DIR = CMakeFiles/quick_service.dir
   OBJECT_FILE_DIR = CMakeFiles/quick_service.dir/src
 
 build CMakeFiles/quick_service.dir/src/socketworker.cpp.o: CXX_COMPILER__quick_service_Debug /home/diandian/Desktop/quick_service/src/socketworker.cpp || cmake_object_order_depends_target_quick_service
   DEP_FILE = CMakeFiles/quick_service.dir/src/socketworker.cpp.o.d
-  FLAGS = -g   -std=c++11
-  INCLUDES = -I/home/diandian/Desktop/quick_service/include
+  FLAGS = -lprotobuf  -std=c++11  -lpthread  -g   -std=c++11
+  INCLUDES = -I/home/diandian/Desktop/quick_service/include -I/home/diandian/Desktop/quick_service/proto/include -I/home/diandian/Desktop/quick_service/cmake-build-debug
   OBJECT_DIR = CMakeFiles/quick_service.dir
   OBJECT_FILE_DIR = CMakeFiles/quick_service.dir/src
 
 build CMakeFiles/quick_service.dir/src/work_mgr.cpp.o: CXX_COMPILER__quick_service_Debug /home/diandian/Desktop/quick_service/src/work_mgr.cpp || cmake_object_order_depends_target_quick_service
   DEP_FILE = CMakeFiles/quick_service.dir/src/work_mgr.cpp.o.d
-  FLAGS = -g   -std=c++11
-  INCLUDES = -I/home/diandian/Desktop/quick_service/include
+  FLAGS = -lprotobuf  -std=c++11  -lpthread  -g   -std=c++11
+  INCLUDES = -I/home/diandian/Desktop/quick_service/include -I/home/diandian/Desktop/quick_service/proto/include -I/home/diandian/Desktop/quick_service/cmake-build-debug
   OBJECT_DIR = CMakeFiles/quick_service.dir
   OBJECT_FILE_DIR = CMakeFiles/quick_service.dir/src
 
 build CMakeFiles/quick_service.dir/src/worker.cpp.o: CXX_COMPILER__quick_service_Debug /home/diandian/Desktop/quick_service/src/worker.cpp || cmake_object_order_depends_target_quick_service
   DEP_FILE = CMakeFiles/quick_service.dir/src/worker.cpp.o.d
-  FLAGS = -g   -std=c++11
-  INCLUDES = -I/home/diandian/Desktop/quick_service/include
+  FLAGS = -lprotobuf  -std=c++11  -lpthread  -g   -std=c++11
+  INCLUDES = -I/home/diandian/Desktop/quick_service/include -I/home/diandian/Desktop/quick_service/proto/include -I/home/diandian/Desktop/quick_service/cmake-build-debug
   OBJECT_DIR = CMakeFiles/quick_service.dir
   OBJECT_FILE_DIR = CMakeFiles/quick_service.dir/src
+
+build CMakeFiles/quick_service.dir/proto/protoc/user.pb.cc.o: CXX_COMPILER__quick_service_Debug /home/diandian/Desktop/quick_service/proto/protoc/user.pb.cc || cmake_object_order_depends_target_quick_service
+  DEP_FILE = CMakeFiles/quick_service.dir/proto/protoc/user.pb.cc.o.d
+  FLAGS = -lprotobuf  -std=c++11  -lpthread  -g   -std=c++11
+  INCLUDES = -I/home/diandian/Desktop/quick_service/include -I/home/diandian/Desktop/quick_service/proto/include -I/home/diandian/Desktop/quick_service/cmake-build-debug
+  OBJECT_DIR = CMakeFiles/quick_service.dir
+  OBJECT_FILE_DIR = CMakeFiles/quick_service.dir/proto/protoc
 
 
 # =============================================================================
@@ -113,10 +127,11 @@ build CMakeFiles/quick_service.dir/src/worker.cpp.o: CXX_COMPILER__quick_service
 #############################################
 # Link the executable quick_service
 
-build quick_service: CXX_EXECUTABLE_LINKER__quick_service_Debug CMakeFiles/quick_service.dir/src/conn.cpp.o CMakeFiles/quick_service.dir/src/main.cpp.o CMakeFiles/quick_service.dir/src/qs.cpp.o CMakeFiles/quick_service.dir/src/service.cpp.o CMakeFiles/quick_service.dir/src/service_mgr.cpp.o CMakeFiles/quick_service.dir/src/socketworker.cpp.o CMakeFiles/quick_service.dir/src/work_mgr.cpp.o CMakeFiles/quick_service.dir/src/worker.cpp.o
-  FLAGS = -g
+build quick_service: CXX_EXECUTABLE_LINKER__quick_service_Debug CMakeFiles/quick_service.dir/src/conn.cpp.o CMakeFiles/quick_service.dir/src/conn_mgr.cpp.o CMakeFiles/quick_service.dir/src/main.cpp.o CMakeFiles/quick_service.dir/src/qs.cpp.o CMakeFiles/quick_service.dir/src/service.cpp.o CMakeFiles/quick_service.dir/src/service_mgr.cpp.o CMakeFiles/quick_service.dir/src/socketworker.cpp.o CMakeFiles/quick_service.dir/src/work_mgr.cpp.o CMakeFiles/quick_service.dir/src/worker.cpp.o CMakeFiles/quick_service.dir/proto/protoc/user.pb.cc.o | /usr/local/lib/libprotobuf.so /usr/local/lib/libprotobuf.so
+  FLAGS = -lprotobuf  -std=c++11  -lpthread  -g
   LINK_FLAGS = -rdynamic
-  LINK_LIBRARIES = -lpthread
+  LINK_LIBRARIES = -Wl,-rpath,/usr/local/lib  -lpthread  /usr/local/lib/libprotobuf.so  -lpthread  -lprotobuf  /usr/local/lib/libprotobuf.so  -lprotobuf
+  LINK_PATH = -L/usr/local/lib
   OBJECT_DIR = CMakeFiles/quick_service.dir
   POST_BUILD = :
   PRE_LINK = :
@@ -172,14 +187,14 @@ build all: phony quick_service
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja: RERUN_CMAKE | ../CMakeLists.txt /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/CMakeCInformation.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/CMakeCXXInformation.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/CMakeCommonLanguageInclude.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/CMakeGenericSystem.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/CMakeInitializeConfigs.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/CMakeLanguageInformation.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/CMakeSystemSpecificInformation.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/CMakeSystemSpecificInitialize.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/CheckCSourceCompiles.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/CheckIncludeFile.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/CheckLibraryExists.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/Compiler/CMakeCommonCompilerMacros.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/Compiler/GNU-C.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/Compiler/GNU-CXX.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/Compiler/GNU.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/FindPackageHandleStandardArgs.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/FindPackageMessage.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/FindThreads.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/Internal/CheckSourceCompiles.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/Platform/Linux-GNU-C.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/Platform/Linux-GNU-CXX.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/Platform/Linux-GNU.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/Platform/Linux.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/Platform/UnixPaths.cmake CMakeCache.txt CMakeFiles/3.23.2/CMakeCCompiler.cmake CMakeFiles/3.23.2/CMakeCXXCompiler.cmake CMakeFiles/3.23.2/CMakeSystem.cmake
+build build.ninja: RERUN_CMAKE | ../CMakeLists.txt /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/CMakeCInformation.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/CMakeCXXInformation.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/CMakeCommonLanguageInclude.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/CMakeGenericSystem.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/CMakeInitializeConfigs.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/CMakeLanguageInformation.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/CMakeSystemSpecificInformation.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/CMakeSystemSpecificInitialize.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/CheckCSourceCompiles.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/CheckIncludeFile.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/CheckLibraryExists.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/Compiler/CMakeCommonCompilerMacros.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/Compiler/GNU-C.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/Compiler/GNU-CXX.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/Compiler/GNU.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/FindPackageHandleStandardArgs.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/FindPackageMessage.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/FindProtobuf.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/FindThreads.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/Internal/CheckSourceCompiles.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/Platform/Linux-GNU-C.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/Platform/Linux-GNU-CXX.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/Platform/Linux-GNU.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/Platform/Linux.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/Platform/UnixPaths.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/SelectLibraryConfigurations.cmake CMakeCache.txt CMakeFiles/3.23.2/CMakeCCompiler.cmake CMakeFiles/3.23.2/CMakeCXXCompiler.cmake CMakeFiles/3.23.2/CMakeSystem.cmake
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build ../CMakeLists.txt /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/CMakeCInformation.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/CMakeCXXInformation.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/CMakeCommonLanguageInclude.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/CMakeGenericSystem.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/CMakeInitializeConfigs.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/CMakeLanguageInformation.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/CMakeSystemSpecificInformation.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/CMakeSystemSpecificInitialize.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/CheckCSourceCompiles.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/CheckIncludeFile.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/CheckLibraryExists.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/Compiler/CMakeCommonCompilerMacros.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/Compiler/GNU-C.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/Compiler/GNU-CXX.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/Compiler/GNU.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/FindPackageHandleStandardArgs.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/FindPackageMessage.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/FindThreads.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/Internal/CheckSourceCompiles.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/Platform/Linux-GNU-C.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/Platform/Linux-GNU-CXX.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/Platform/Linux-GNU.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/Platform/Linux.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/Platform/UnixPaths.cmake CMakeCache.txt CMakeFiles/3.23.2/CMakeCCompiler.cmake CMakeFiles/3.23.2/CMakeCXXCompiler.cmake CMakeFiles/3.23.2/CMakeSystem.cmake: phony
+build ../CMakeLists.txt /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/CMakeCInformation.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/CMakeCXXInformation.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/CMakeCommonLanguageInclude.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/CMakeGenericSystem.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/CMakeInitializeConfigs.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/CMakeLanguageInformation.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/CMakeSystemSpecificInformation.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/CMakeSystemSpecificInitialize.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/CheckCSourceCompiles.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/CheckIncludeFile.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/CheckLibraryExists.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/Compiler/CMakeCommonCompilerMacros.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/Compiler/GNU-C.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/Compiler/GNU-CXX.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/Compiler/GNU.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/FindPackageHandleStandardArgs.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/FindPackageMessage.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/FindProtobuf.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/FindThreads.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/Internal/CheckSourceCompiles.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/Platform/Linux-GNU-C.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/Platform/Linux-GNU-CXX.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/Platform/Linux-GNU.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/Platform/Linux.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/Platform/UnixPaths.cmake /home/diandian/.cache/JetBrains/RemoteDev/dist/71861dbc5a9e2_CLion-2022.2.1/bin/cmake/linux/share/cmake-3.23/Modules/SelectLibraryConfigurations.cmake CMakeCache.txt CMakeFiles/3.23.2/CMakeCCompiler.cmake CMakeFiles/3.23.2/CMakeCXXCompiler.cmake CMakeFiles/3.23.2/CMakeSystem.cmake: phony
 
 
 #############################################

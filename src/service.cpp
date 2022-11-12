@@ -4,6 +4,7 @@
 #include <iostream>
 #include <unistd.h>
 #include <string.h>
+#include "qs.h"
 #include <memory>
 
 service::service() {
@@ -36,6 +37,7 @@ shared_ptr<basemsg> service::popMsg() {
     return msg;
 };
 
+
 bool service::in_global()
 {
     return inGlobal;
@@ -67,7 +69,7 @@ void service::on_msg(shared_ptr<basemsg> msg){
     if (msg->type == basemsg::TYPE::SOCKET_RW)
     {
         auto m = dynamic_pointer_cast<socket_rw_msg>(msg);
-        on_rw_msg(msg);
+        on_rw_msg(m);
     };
 };
 
@@ -75,13 +77,28 @@ void service::on_accept_msg(shared_ptr<basemsg> msg){
     cout<<"serviceid == "<<id<<" ::on_accept_msg "<<endl;
 }
 
-void service::on_service_msg(shared_ptr<basemsg> msg){
+void service::on_service_msg(shared_ptr<ServiceMsg> msg){
     cout<<"serviceid == "<<id<<" ::on_service_msg "<<endl;
 }
 
-void service::on_rw_msg(shared_ptr<basemsg> msg){
+void service::on_rw_msg(shared_ptr<socket_rw_msg> msg){
     cout<<"serviceid == "<<id<<" ::on_rw_msg "<<endl;
+    int fd = msg->fd;
+    //可读
+    if(msg->isread) {
+        shared_ptr<conn> conn_obj = qs::inst->get_conn_mgr()->get_conn(fd);
+        conn_obj->read_buff();
+    }
+    //可写（注意没有else）
+    if(msg->iswrite) {
+        shared_ptr<conn> conn_obj = qs::inst->get_conn_mgr()->get_conn(fd);
+        if(conn_obj){
+            conn_obj->OnWriteable();
+        }
+    }
 }
+
+
 
 bool service::process_msg()
 {

@@ -20,8 +20,6 @@ public:
 
     int remove_event(int fd);
 
-    int mod_event(int fd);
-
     void onEvent(epoll_event ev);//epoll 事件处理
     void onaccept(std::shared_ptr<conn> Conn);
 
@@ -31,6 +29,8 @@ public:
     void clone_socket();
 
     void add_event(int fd);
+
+    void mod_event(int fd, bool epollOut);
 };
 
 

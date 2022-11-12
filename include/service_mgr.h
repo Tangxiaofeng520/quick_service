@@ -19,5 +19,7 @@ public:
     shared_ptr<service> new_service();
 
     void service_exit(uint32_t id);
+
+    void CheckAndPutGlobal(shared_ptr<service> srv);
 };
 

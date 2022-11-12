@@ -11,7 +11,7 @@
 
 class work_mgr {
 public:
-    int WORKER_NUM = 3;              //工作线程数（配置）
+    int WORKER_NUM = 1;              //工作线程数（配置）
 
     //休眠和唤醒
     pthread_mutex_t sleepMtx;

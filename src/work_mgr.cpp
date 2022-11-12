@@ -38,24 +38,29 @@ void work_mgr::creat_works(){
 
 //进入休眠
 void work_mgr::worker_wait() {
+    cout<<"worker_wait   = "<< sleepCount <<endl;
     pthread_mutex_lock(&sleepMtx);
     {
         sleepCount++;
+        cout<<"sleepCount1  = "<< sleepCount <<endl;
         // 会先给sleepMtx 解锁，让线程休眠，sleepMtx加锁（线程被唤醒）
         pthread_cond_wait(&sleepCond, &sleepMtx);
         sleepCount--;
+        cout<<"worker unlock  = "<< sleepCount <<endl;
     }
     pthread_mutex_unlock(&sleepMtx);
+    cout<<"worker_wait end  = "<< sleepCount <<endl;
 }
 
 
 void work_mgr::check_and_weakup() {
+    cout << "weakup" << endl;
     if (sleepCount <= 0 ) return;
     int globalLen = qs::inst->get_globalLen();
     //此时去 sleepCount 应当加锁 ，但是考虑的性能问题  允许错误
     if( WORKER_NUM - sleepCount <= globalLen ) {
-        cout << "weakup" << endl;
-        pthread_cond_signal(&sleepCond);
+        cout << "weakup true" << endl;
+        pthread_cond_broadcast(&sleepCond);
     }
 
 }

@@ -2,6 +2,7 @@
 // Created by diandian on 10/29/22.
 //
 #include "service_mgr.h"
+#include "qs.h"
 #include <iostream>
 #include <unistd.h>
 #include <string.h>
@@ -51,4 +52,22 @@ void service_mgr::service_exit(uint32_t id){
     if (!srv) return;
     srv->exit();
 
+}
+
+
+void service_mgr::CheckAndPutGlobal(shared_ptr<service> srv) {
+
+    pthread_spin_lock(&srv->queueLock);
+    {
+        //重新放回全局队列
+        if(!srv->msg_queue.empty()) {
+            //此时srv->inGlobal一定是true
+            qs::inst->push_global_msg_queue(srv);
+        }
+            //不在队列中，重设inGlobal
+        else {
+            srv->set_in_global(false);
+        }
+    }
+    pthread_spin_unlock(&srv->queueLock);
 }

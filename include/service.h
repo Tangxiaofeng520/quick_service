@@ -25,14 +25,18 @@ public:
 
     void on_accept_msg(shared_ptr<basemsg> msg);
 
-    void on_service_msg(shared_ptr<basemsg> msg);
+    void on_service_msg(shared_ptr<ServiceMsg> msg);
 
-    void on_rw_msg(shared_ptr<basemsg> msg);
+    void on_rw_msg(shared_ptr<socket_rw_msg> msg);
 
     bool process_msg();
 
     void process_msgs(int num);
 
     void exit();
+
+    void OnSocketData(int fd, const char *serializeToStr, int len);
+
+    void CheckAndPutGlobal(shared_ptr<service> srv);
 };
 

@@ -10,9 +10,17 @@
 #include <memory>
 #include <unordered_map>
 #include <mutex>
+#include <queue>
 #include "pthread.h"
 
 using namespace std;
+
+class WriteObject {
+public:
+    streamsize start;
+    streamsize len;
+    shared_ptr<char> buff;
+};
 
 class conn{
 public:
@@ -24,23 +32,22 @@ public:
     uint8_t type;
     int fd;
     uint32_t serviceId;
-    shared_ptr<char> buff;
+    queue<shared_ptr<WriteObject>> writers ;
     bool is_listen_conn();
+
+    void read_buff();
+
+    void OnSocketData(int fd, const char *buff, int len);
+
+    void EntireWriteWhenEmpty(shared_ptr<char> buff, streamsize len);
+
+    void EntireWriteWhenNotEmpty(shared_ptr<char> buff, streamsize len);
+
+    void EntireWrite(shared_ptr<char> buff, streamsize len);
+
+    bool WriteFrontObj();
+
+    void OnWriteable();
 };
 
-//conn
-class conn_mgr {
-public:
-    conn_mgr(/* args */);
-    ~conn_mgr();
-    shared_ptr<conn> add_conn(int fd, uint32_t id, conn::TYPE type);
-    shared_ptr<conn> get_conn(int fd);
-    bool remove_conn(int fd);
-    static  conn_mgr *getInstance();
-    static mutex m_mutex;
-private:
-    unordered_map<uint32_t, shared_ptr<conn>> conns;
-    pthread_rwlock_t connsLock; //读写锁
-    static conn_mgr  *m_pInstance;
 
-};

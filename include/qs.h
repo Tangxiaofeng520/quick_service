@@ -10,7 +10,7 @@
 //class Worker;
 #include "socketworker.h"
 #include "work_mgr.h"
-
+#include "conn_mgr.h"
 class qs
 {
     public:
@@ -19,6 +19,7 @@ class qs
     service_mgr* serviceMgr{};
     socketworker* socketWorker;
     work_mgr* workerMgr;
+    conn_mgr* connMgr;
     void close_socketworkers();
     int globalLen = 0;
     ~qs();
@@ -47,6 +48,12 @@ public:
     int get_globalLen();
 
     work_mgr *get_work_mgr();
+
+    service_mgr *get_service_mgr();
+
+    conn_mgr * get_conn_mgr();
+
+    socketworker *get_socketworker();
 };
 
 
