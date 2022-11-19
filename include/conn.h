@@ -37,8 +37,6 @@ public:
 
     void read_buff();
 
-    void OnSocketData(int fd, const char *buff, int len);
-
     void EntireWriteWhenEmpty(shared_ptr<char> buff, streamsize len);
 
     void EntireWriteWhenNotEmpty(shared_ptr<char> buff, streamsize len);
@@ -48,6 +46,9 @@ public:
     bool WriteFrontObj();
 
     void OnWriteable();
+
+    void OnSocketData(int fd, char *buff, int len);
+
 };
 
 

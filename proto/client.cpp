@@ -12,7 +12,7 @@
 #include "user.pb.h"
 using namespace std;
 int m_sockfd;
-
+#define BUFFER_SIZE                 1024
 bool  ConnectToServer() {
     //SOCKET
     m_sockfd = socket(AF_INET, SOCK_STREAM, 0);
@@ -56,6 +56,8 @@ int main(){
 
     string serializeToStr;
     a1.SerializeToString(&serializeToStr);
+    char dst[BUFFER_SIZE];
+    strcpy(dst, serializeToStr.c_str());
 //    IM::Account account2;
 //    if(!account2.ParseFromString(serializeToStr))
 //    {
@@ -70,8 +72,8 @@ int main(){
     ConnectToServer();
     string helloFromClient = "hello from client";
     //cout<<helloFromClient.length()<<endl;
-    //Send(&helloFromClient,helloFromClient.length());
-    Send(&serializeToStr, serializeToStr.length());
+    //Send(&helloFromClient,helloFromClient.length())
+    Send( dst, strlen(dst));
     
 };
 //编译

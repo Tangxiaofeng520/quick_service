@@ -13,12 +13,24 @@
 #include <unistd.h>
 
 void conn::read_buff(){
-    const int BUFFSIZE = 512;
-    char buff[BUFFSIZE];
+    const int BUFFSIZE = 1024;
+    char buff[BUFFSIZE+1]={0};
     int len = 0;
     do {
-        len = read(fd, &buff, BUFFSIZE);
+        len = read(fd, &buff, 1024);
+
         cout<< "read len = "<< len << endl;
+//        string data = buff;
+//        IM::Account account2;
+//        if(!account2.ParseFromString(data))
+//        {
+//            cerr << "failed to parse account2." << endl;
+//            return ;
+//        }
+//        cout << "反序列化：" << endl;
+//        cout << account2.id() << endl;
+//        cout << account2.name() << endl;
+//        cout << account2.password() << endl;
         if(len > 0){
             OnSocketData(fd, buff, len);
         }
@@ -29,21 +41,10 @@ void conn::read_buff(){
     }
 }
 
-
-void conn::OnSocketData(int fd, const char* buff, int len) {
-    GOOGLE_PROTOBUF_VERIFY_VERSION;
-    cout << "OnSocketData" << fd << endl;
-    //cout << "OnSocketData" << to_string(buff) << endl;
-    string strData(buff);
-//    IM::Account a1;
-//    a1.set_id(1);
-//    a1.set_name("first");
-//    a1.set_password("12345678");
-//
-//    string serializeToStr;
-//    a1.SerializeToString(&serializeToStr);
+void conn::OnSocketData(int fd, char* buff, int len) {
+    string data = buff;
     IM::Account account2;
-    if(!account2.ParseFromString(strData))
+    if(!account2.ParseFromString(data))
     {
         cerr << "failed to parse account2." << endl;
         return ;
@@ -52,7 +53,6 @@ void conn::OnSocketData(int fd, const char* buff, int len) {
     cout << account2.id() << endl;
     cout << account2.name() << endl;
     cout << account2.password() << endl;
-    google::protobuf::ShutdownProtobufLibrary();
 
 }
 
