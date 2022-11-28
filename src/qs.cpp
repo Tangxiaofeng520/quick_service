@@ -88,7 +88,7 @@ void qs::start_socketworkers()
     socketWorker = new socketworker();
     socketWorker->init();
 
-    socketWorker->start_socket(8002);
+    socketWorker->start_socket(8003);
     socketthread = new thread(*socketWorker);
 }
 

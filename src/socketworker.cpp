@@ -101,7 +101,7 @@ void socketworker::onaccept(shared_ptr<conn> listenconn)
     cout<<"add_event begin"<<endl;
     //创建service
     service_mgr* serviceMgr = qs::inst->get_service_mgr();
-    auto srv = serviceMgr->new_service();
+    auto srv = serviceMgr->new_service(make_shared<string>("game"));
 
     //添加conn
     shared_ptr<conn>client_conn = Conn_mgr->add_conn(client_fd,srv->id,conn::TYPE::CLIENT);
@@ -148,12 +148,13 @@ int socketworker::start_socket(uint32_t port) {
         return -1;
     }
     service_mgr* serviceMgr = qs::inst->get_service_mgr();
-    auto srv = serviceMgr->new_service();
+    auto srv = serviceMgr->new_service(make_shared<string>("gateway"));
     Conn_mgr->add_conn(listen_fd,srv->id,conn::TYPE::LISTEN);
     add_event(listen_fd);
     cout<< "socketworker::start finish"<<endl;
     return listen_fd;
 }
+
 void socketworker::clone_socket(){
     Conn_mgr->remove_conn(listen_fd);
     close(listen_fd);

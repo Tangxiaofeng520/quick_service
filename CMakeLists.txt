@@ -19,7 +19,7 @@ set(CMAKE_BUILD_TYPE "Debug")
 SET(PROTOBUF_DIR /usr/local/)
 find_package(Protobuf REQUIRED)
 
-set(PROTO proto)
+set(PROTO proto src/LuaManager.cpp include/LuaManager.h common/lua_tinker.cpp common/lua_tinker.h src/LuaAPI.cpp include/LuaAPI.h)
 file(GLOB PROTO
         /proto/*.cc
         /proto/*.h
@@ -43,3 +43,13 @@ target_include_directories(quick_service
         PUBLIC
         ${PROTOBUF_INCLUDE_DIR}
         ${CMAKE_CURRENT_BINARY_DIR})
+
+
+
+#lua头文件、库
+# 添加库文件路径
+link_directories(${cmake_CURRENT_SOURCE_DIR}/3rd/lua-5.3.5/src/)
+
+include_directories(./3rd/lua-5.3.5/src)
+target_link_libraries(quick_service liblua.a)
+target_link_libraries(quick_service dl)

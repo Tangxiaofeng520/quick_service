@@ -5,6 +5,7 @@
 #include <unistd.h>
 #include <string.h>
 #include "qs.h"
+#include "LuaAPI.h"
 #include <memory>
 
 service::service() {
@@ -14,6 +15,34 @@ service::service() {
 service::~service() {
     cout<<"~~service"<<endl;
     pthread_spin_destroy(&queueLock);
+    OnExit();
+}
+
+void service::init(){
+    //新建Lua虚拟机
+    luaState = luaL_newstate();
+    luaL_openlibs(luaState);
+    //注册qs系统API
+    LuaAPI::Register(luaState);
+    cout << "type = " << type <<endl;
+    //执行Lua文件
+    string filename = "../srv_lua/" + *type + "/init.lua";
+    int isok = luaL_dofile(luaState, filename.data());
+    if(isok == 1){ //成功返回值为0，失败则为1.
+        cout << "run lua fail:" << lua_tostring(luaState, -1) << endl;
+    }
+    lua_getglobal(   luaState,"OnInit");
+    lua_pushinteger(luaState,1);
+    isok = lua_pcall(luaState,1,0,0);
+    if(isok == 1){ //成功返回值为0，失败则为1
+        cout << "call lua func fail:" << lua_tostring(luaState, -1) << endl;
+    }
+
+}
+
+void service::OnExit() {
+    //关闭Lua虚拟机
+    lua_close(luaState);
 }
 
 void service::pushMsg(shared_ptr<basemsg> msg) {
@@ -97,8 +126,6 @@ void service::on_rw_msg(shared_ptr<socket_rw_msg> msg){
         }
     }
 }
-
-
 
 bool service::process_msg()
 {

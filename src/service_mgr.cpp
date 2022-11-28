@@ -6,6 +6,7 @@
 #include <iostream>
 #include <unistd.h>
 #include <string.h>
+
 service_mgr::service_mgr()
 {
     pthread_rwlock_init(&servicesLock,NULL);
@@ -20,8 +21,8 @@ shared_ptr<service> service_mgr::get_service(uint32_t sid){
     shared_ptr<service> srv = NULL;
     pthread_rwlock_rdlock(&servicesLock);
     {
-        unordered_map<uint32_t, shared_ptr<service>>::iterator iter = services.find (sid);
-        if (iter != services.end()){
+        unordered_map<uint32_t, shared_ptr<service>>::iterator iter = id_2_srvs.find (sid);
+        if (iter != id_2_srvs.end()){
             srv = iter->second;
         }
     }
@@ -29,17 +30,18 @@ shared_ptr<service> service_mgr::get_service(uint32_t sid){
     return srv;
 }
 
-shared_ptr<service> service_mgr::new_service(){
+shared_ptr<service> service_mgr::new_service(shared_ptr<string> type){
     uint32_t sid = get_maxid();
     auto srv = make_shared<service>();
+    srv->type = type;
     pthread_rwlock_wrlock(&servicesLock);
     {
         srv->id = get_maxid();
-        services.emplace(srv->id, srv);
+        id_2_srvs.emplace(srv->id, srv);
     }
     pthread_rwlock_unlock(&servicesLock);
 
-    //srv.init()
+    srv->init();
     return srv;
 }
 
@@ -53,7 +55,6 @@ void service_mgr::service_exit(uint32_t id){
     srv->exit();
 
 }
-
 
 void service_mgr::CheckAndPutGlobal(shared_ptr<service> srv) {
 
