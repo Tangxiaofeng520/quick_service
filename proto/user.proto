@@ -1,0 +1,24 @@
+syntax = "proto3";
+package IM;
+message msgUnit {
+    uint64 len = 1; //
+    data d1 = 2;
+}
+
+message data {
+    int32 type = 1;
+    string say = 2;
+}
+
+message Account {
+    //账号
+    uint64 ID = 1;
+    //名字
+    string name = 2;
+    //密码
+    string password = 3;
+}
+
+message User {
+    Account user = 1;
+}
